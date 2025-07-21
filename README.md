@@ -6,7 +6,7 @@ A robotics project that tracks a specific color using computer vision and moves 
 
 ## Overview
 
-This project combines the power of a **Raspberry Pi 3B+** and an **Arduino Uno R3** to create a mobile robot that:
+This project combines the **Raspberry Pi 3B+** and an **Arduino Uno R3** to create a mobile robot that:
 
 - Detects and tracks a target color (like red, green, or blue) using a camera.
 - Calculates the position of the color in the camera frame.
@@ -17,11 +17,11 @@ This project combines the power of a **Raspberry Pi 3B+** and an **Arduino Uno R
 ##  Hardware Used
 
 -  **Raspberry Pi 3B+**
-  - Runs the OpenCV color detection code.
-  - Sends position data to the Arduino via USB serial.
+    - Runs the OpenCV color detection code.
+    - Sends position data to the Arduino via USB serial.
 -  **Arduino Uno R3**
-  - Receives commands from the Pi.
-  - Controls motors 
+    - Receives commands from the Pi.
+    - Controls motors 
 
 
 ---
