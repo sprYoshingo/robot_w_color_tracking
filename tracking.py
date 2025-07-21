@@ -40,9 +40,9 @@ while True: #read from the cam until it fails / ends
             cv2.rectangle(frame, (x,y),(x+w,y+h), (0,255,0),2)
             cv2.circle(frame, (cx,cy),5,(255,0,0),-1)
 
-            #print the time every second
+            #print the time every second 
             if time.time() - last_time > 1.0:
-                print(f"Object position: ({cx},{cy})")
+                print(f"Object position: ({cx},{cy})") #change to sending to arduino later
                 last_time = time.time()
 
     #show the frame
