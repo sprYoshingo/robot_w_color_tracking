@@ -22,25 +22,37 @@ void setup() {
 
 void loop() {
   if (Serial.available()){
-    char command = Serial.read();
+    String input = Serial.readStringUntil('\n');
+    int commaIDX = input.indexOf(',');
+
+    char command = 'S';
+    int speed = 0;
+
+    if (commaIDX > 0){
+      command = input.charAt(0);
+      speed = input.substring(commaIDX+1).toInt();
+    }
+    else if (input.length()>0){
+      command = input.charAt(0);
+    }
     
 
     if (command == 'F'){ //forwards
       //move both motors forward
       digitalWrite(AIN1, HIGH);  //right forward
-      analogWrite(PWMA, 200);
+      analogWrite(PWMA, speed);
 
       digitalWrite(BIN1, HIGH);  //left forward
-      analogWrite(PWMB, 200);
+      analogWrite(PWMB, speed);
     }
 
     else if (command == 'B'){ //backwards
       //reverse both motors
       digitalWrite(AIN1, LOW);   //right backward
-      analogWrite(PWMA, 200);
+      analogWrite(PWMA, speed);
 
       digitalWrite(BIN1, LOW);   //left backward
-      analogWrite(PWMB, 200);
+      analogWrite(PWMB, speed);
 
   }
     else if (command == 'S'){ //stop
@@ -50,28 +62,28 @@ void loop() {
     }
     else if (command == 'R'){ // right forward
       digitalWrite(AIN1,HIGH); //only move the right motors forward
-      analogWrite(PWMA,200);
+      analogWrite(PWMA,speed);
 
       analogWrite(PWMB,0);
     }
 
     else if (command == 'L'){ //left forward
       digitalWrite(BIN1,HIGH);
-      analogWrite(PWMB,200);
+      analogWrite(PWMB,speed);
 
       analogWrite(PWMA,0);
     }
 
     else if (command == 'X'){ // right backwards **SEE send-data.py FOR NOTE ON MOVEMENT FOR BACKWARDS COMMANDS**
       digitalWrite(AIN1,LOW);
-      analogWrite(PWMA,200);
+      analogWrite(PWMA,speed);
 
       analogWrite(PWMB,0);
     }
 
     else if (command == 'Q'){ //left backwards
       digitalWrite(BIN1,LOW);
-      analogWrite(PWMB,200);
+      analogWrite(PWMB,speed);
 
       analogWrite(PWMA,0);
     }
