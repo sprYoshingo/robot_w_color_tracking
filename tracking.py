@@ -5,6 +5,13 @@ import time
 #open the camera
 cam = cv2.VideoCapture(0)
 
+#get the frame's height and width to find the center to determine what direction it moves
+frame_w = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
+frame_h = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
+center_x = frame_w//2
+center_y = frame_h//2
+
+
 #color to track (currently green)
 lower_color = np.array([35, 100, 100])
 upper_color = np.array([85, 255, 255])
@@ -35,6 +42,9 @@ while True: #read from the cam until it fails / ends
 
             cx,cy= (x+w)//2, (y+h)//2
 
+            dx = cx-center_x #distance from center
+            dy = cy-center_y
+
 
             #draw frame for tracking
             cv2.rectangle(frame, (x,y),(x+w,y+h), (0,255,0),2)
@@ -43,7 +53,9 @@ while True: #read from the cam until it fails / ends
             #print the time every second 
             if time.time() - last_time > 1.0:
                 print(f"Object position: ({cx},{cy})") #change to sending to arduino later
+                print(f"Distance from center: ({dx},{dy})\n")
                 last_time = time.time()
+                
 
     #show the frame
     cv2.imshow("lol", frame)
