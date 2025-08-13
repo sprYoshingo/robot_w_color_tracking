@@ -5,7 +5,7 @@ from tkinter import messagebox
 
 #setup serial
 try:
-    arduino = serial.Serial(port='COM3', baudrate=9600, timeout=1) #my arduino com port change as needed
+    arduino = serial.Serial(port='COM3', baudrate=9600, timeout=1) #my arduino com port; change as needed
     time.sleep(2)  #reset time
 except serial.SerialException:
     arduino = None
@@ -27,9 +27,6 @@ root.configure(bg="#000000")
 
 button_style = {"width": 12, "height": 2, "font": ("Arial", 12, "bold")}
 label_style = {"fg": "white", "bg": "#000000", "font": ("Papyrus", 16, "bold")}
-
-
-
 
 
 #button functions
@@ -71,7 +68,7 @@ tk.Button(frame, text="Right\nForward", command=right_forward, **button_style).g
 
 tk.Button(frame, text="Forward", command=forward, **button_style).grid(row=0, column=1, padx=5, pady=10)
 
-speed_var = tk.IntVar(value=150)
+speed_var = tk.IntVar(value=150) #speed slider
 tk.Scale(root,from_=0,to=255,variable=speed_var,orient="horizontal",label="speed",length=300,bg="#000000",fg="white",troughcolor="gray").pack()
 
 #close serial on exit

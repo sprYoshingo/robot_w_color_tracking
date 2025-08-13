@@ -5,12 +5,6 @@ def main():
     #open the camera
     cam = cv2.VideoCapture(0)
 
-    #get the frame's height and width to find the center to determine what direction it moves
-    frame_w = int(cam.get(cv2.CAP_PROP_FRAME_WIDTH))
-    frame_h = int(cam.get(cv2.CAP_PROP_FRAME_HEIGHT))
-    
-
-
     #color to track (currently green)
     lower_color = np.array([35, 100, 100])
     upper_color = np.array([85, 255, 255])
@@ -56,6 +50,8 @@ def main():
                     print(f"Object position: ({cx},{cy})") #change to sending to arduino later
                     print(f"Distance from center: ({dx},{dy})")
                     print(f"Direction: {get_direction(dx,dy)}")
+                    print(f"Speed: {get_speed(dx,dy,frame)}")
+                    print()
                     last_time = time.time()
                     
 
@@ -86,7 +82,20 @@ def get_direction(dx,dy):
 
     return "".join(direction) if direction else "none"
 
-    #def get_speed(dx,dy):
+
+def get_speed(dx,dy,frame):
+    #set max speed
+    max_speed = 255
+    
+
+    center_distance = ((dx**2) + (dy**2))**.5
+    
+    whole_frame = ((frame.shape[1]**2) + (frame.shape[0]**2))**.5
+
+    percent_diff = (center_distance/whole_frame) *1.3
+
+    return max_speed*percent_diff
+
 
 
 
